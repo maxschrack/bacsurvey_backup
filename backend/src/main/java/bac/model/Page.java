@@ -1,0 +1,104 @@
+package bac.model;
+
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Created by max on 08/02/16.
+ */
+@Entity
+@Table(name="page")
+@Where(clause = "deleted='f'")
+@SQLDelete(sql="update page set deleted = 't' where id = ?")
+public class Page {
+
+    @Id
+    @Column(unique=true, nullable=false)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_page_id")
+    @SequenceGenerator(initialValue = 1, name = "seq_page_id", sequenceName = "seq_page_id")
+    private Long id;
+
+    @Column(name="name", nullable = false)
+    private String name;
+
+    @Column(name="text", nullable = false)
+    private String text;
+
+    @Column(name="number")
+    private int number;
+
+    @Column(name="deleted")
+    private boolean deleted;
+
+    @ManyToOne
+    @JoinColumn(name="questionnaire_id", referencedColumnName = "id")
+    private Questionnaire questionnaire;
+
+    @OneToMany(mappedBy = "page")
+    @OrderBy("position")
+    private Set<Question> questions;
+
+    public Page(){
+        this.questions = new HashSet<>();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public Questionnaire getQuestionnaire() {
+        return questionnaire;
+    }
+
+    public void setQuestionnaire(Questionnaire questionnaire) {
+        this.questionnaire = questionnaire;
+    }
+
+    public Set<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(Set<Question> questions) {
+        this.questions = questions;
+    }
+}
