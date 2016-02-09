@@ -4,22 +4,20 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
- * Created by max on 08/02/16.
+ * Created by max on 09/02/16.
  */
 @Entity
-@Table(name="page")
+@Table(name="meta_page")
 @Where(clause = "deleted='f'")
-@SQLDelete(sql="update page set deleted = 't' where id = ?")
-public class Page {
+@SQLDelete(sql="update meta_page set deleted = 't' where id = ?")
+public class MetaPage {
 
     @Id
     @Column(unique=true, nullable=false)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_page_id")
-    @SequenceGenerator(initialValue = 1, name = "seq_page_id", sequenceName = "seq_page_id")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_metapage_id")
+    @SequenceGenerator(initialValue = 1, name = "seq_metapage_id", sequenceName = "seq_metapage_id")
     private Long id;
 
     @Column(name="title", nullable = false)
@@ -28,23 +26,12 @@ public class Page {
     @Column(name="text", nullable = false)
     private String text;
 
-    @Column(name="number")
-    private int number;
-
     @Column(name="deleted")
     private boolean deleted;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="questionnaire_id", referencedColumnName = "id")
     private Questionnaire questionnaire;
-
-    @OneToMany(mappedBy = "page")
-    @OrderBy("position")
-    private Set<Question> questions;
-
-    public Page(){
-        this.questions = new HashSet<>();
-    }
 
     public Long getId() {
         return id;
@@ -70,14 +57,6 @@ public class Page {
         this.text = text;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
     public boolean getDeleted() {
         return deleted;
     }
@@ -92,13 +71,5 @@ public class Page {
 
     public void setQuestionnaire(Questionnaire questionnaire) {
         this.questionnaire = questionnaire;
-    }
-
-    public Set<Question> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(Set<Question> questions) {
-        this.questions = questions;
     }
 }

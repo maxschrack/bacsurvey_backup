@@ -5,8 +5,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by max on 08/02/16.
@@ -47,6 +46,16 @@ public class Questionnaire {
     @OneToMany(mappedBy = "questionnaire")
     @OrderBy("number")
     private List<Page> pages;
+
+    @OneToOne(mappedBy = "questionnaire")
+    private MetaPage startPage;
+
+    @OneToOne(mappedBy = "questionnaire")
+    private MetaPage endPage;
+
+    public Questionnaire(){
+        this.pages = new ArrayList<>();
+    }
 
     public Long getId() {
         return id;
@@ -110,5 +119,21 @@ public class Questionnaire {
 
     public void setPages(List<Page> pages) {
         this.pages = pages;
+    }
+
+    public MetaPage getStartPage() {
+        return startPage;
+    }
+
+    public void setStartPage(MetaPage startPage) {
+        this.startPage = startPage;
+    }
+
+    public MetaPage getEndPage() {
+        return endPage;
+    }
+
+    public void setEndPage(MetaPage endPage) {
+        this.endPage = endPage;
     }
 }
