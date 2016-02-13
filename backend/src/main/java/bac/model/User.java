@@ -4,6 +4,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +16,7 @@ import java.util.Set;
 @Table(name="system_user")
 @Where(clause = "deleted='f'")
 @SQLDelete(sql="update system_user set deleted = 't' where id = ?")
-public class User {
+public class User extends bac.model.Entity{
 
     @Id
     @Column(unique=true, nullable=false)

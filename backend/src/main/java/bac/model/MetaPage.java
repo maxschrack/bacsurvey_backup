@@ -4,6 +4,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 
 /**
  * Created by max on 09/02/16.
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Table(name="meta_page")
 @Where(clause = "deleted='f'")
 @SQLDelete(sql="update meta_page set deleted = 't' where id = ?")
-public class MetaPage {
+public class MetaPage extends bac.model.Entity{
 
     @Id
     @Column(unique=true, nullable=false)

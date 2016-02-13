@@ -2,6 +2,7 @@ package bac.model;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import javax.persistence.Entity;
 
 import javax.persistence.*;
 
@@ -10,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="multiple_choice_answer")
-public class MultipleChoiceAnswer {
+public class MultipleChoiceAnswer extends bac.model.Entity{
 
     @Id
     @Column(unique=true, nullable=false)

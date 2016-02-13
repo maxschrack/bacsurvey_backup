@@ -4,6 +4,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.Set;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Set;
 @Where(clause = "deleted='f'")
 @SQLDelete(sql="update question set deleted = 't' where id = ?")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Question {
+public class Question extends bac.model.Entity{
 
     @Id
     @Column(unique=true, nullable=false)

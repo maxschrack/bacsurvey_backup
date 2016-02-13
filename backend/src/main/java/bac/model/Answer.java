@@ -4,13 +4,14 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 
 /**
  * Created by max on 09/02/16.
  */
 @Entity
 @Table(name="answer")
-public class Answer {
+public class Answer extends bac.model.Entity{
 
     @Id
     @Column(unique=true, nullable=false)

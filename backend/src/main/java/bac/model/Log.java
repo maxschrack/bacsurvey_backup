@@ -3,6 +3,7 @@ package bac.model;
 import bac.model.enums.ELogType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="log")
-public class Log {
+public class Log extends bac.model.Entity{
 
     @Id
     @Column(unique=true, nullable=false)
