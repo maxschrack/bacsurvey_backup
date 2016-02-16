@@ -20,8 +20,8 @@ logging:
   file: bacsurvey.log
   level.*: TRACE
 
-#frontend:
-#  url: http://localhost:8000/#/
+frontend:
+  url: http://localhost:8000/#/
 
 #email.from: bacsurvey@gmx.at
 #mail:

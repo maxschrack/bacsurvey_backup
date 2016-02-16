@@ -17,6 +17,11 @@ public class UserDto  extends EntityDto{
 
     private boolean deleted;
 
+    public UserDto(){}
+
+    public UserDto(Long id){
+        this.id = id;
+    }
 
     @Override
     public String getDisplayName() {

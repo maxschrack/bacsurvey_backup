@@ -39,12 +39,12 @@ public class QuestionnaireConverter extends Converter<QuestionnaireDto, Question
 
     @Override
     public QuestionnaireDto newDto() {
-        return null;
+        return new QuestionnaireDto();
     }
 
     @Override
     public Questionnaire newEntity() {
-        return null;
+        return new Questionnaire();
     }
 
     @Override
@@ -88,20 +88,21 @@ public class QuestionnaireConverter extends Converter<QuestionnaireDto, Question
         entity.setPages(pages);
 
         // setStartPage
-        MetaPage startPage = metaPageRepository.findOne(dto.getStartPageId());
-        if(startPage != null){
-            entity.setStartPage(startPage);
-        }else{
-            entity.setStartPage(null);
+        if(dto.getStartPageId() != null){
+            MetaPage startPage = metaPageRepository.findOne(dto.getStartPageId());
+            if(startPage != null){
+                entity.setStartPage(startPage);
+            }
         }
 
         // set endPage
-        MetaPage endPage = metaPageRepository.findOne(dto.getEndPageId());
-        if(endPage == null) {
-            entity.setEndPage(endPage);
-        }else{
-            entity.setEndPage(null);
+        if(dto.getStartPageId() != null) {
+            MetaPage endPage = metaPageRepository.findOne(dto.getEndPageId());
+            if (endPage == null) {
+                entity.setEndPage(endPage);
+            }
         }
+
         // set User
         User user = userRepository.findOne(dto.getUserId());
         if(user == null)

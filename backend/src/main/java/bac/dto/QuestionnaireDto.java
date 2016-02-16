@@ -34,6 +34,11 @@ public class QuestionnaireDto extends EntityDto{
         this.pageIds = new ArrayList<>();
     }
 
+    public QuestionnaireDto(Long id){
+        this.id = id;
+        this.pageIds = new ArrayList<>();
+    }
+
     public String getName() {
         return name;
     }

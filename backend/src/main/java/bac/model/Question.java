@@ -15,7 +15,7 @@ import java.util.Set;
 @Where(clause = "deleted='f'")
 @SQLDelete(sql="update question set deleted = 't' where id = ?")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="question_type")
+@DiscriminatorColumn(name="question_type",discriminatorType=DiscriminatorType.STRING)
 public class Question extends bac.model.Entity{
 
     @Id
