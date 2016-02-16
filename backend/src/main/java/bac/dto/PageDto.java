@@ -1,6 +1,8 @@
 package bac.dto;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,10 +23,10 @@ public class PageDto extends EntityDto {
     // Foreign Keys
     private Long questionnaireId;
 
-    private Set<Long> questionIds;
+    private List<Long> questionIds;
 
     public PageDto() {
-        this.questionIds = new HashSet<>();
+        this.questionIds = new ArrayList<>();
     }
 
     @Override
@@ -82,11 +84,11 @@ public class PageDto extends EntityDto {
         this.questionnaireId = questionnaireId;
     }
 
-    public Set<Long> getQuestionIds() {
+    public List<Long> getQuestionIds() {
         return questionIds;
     }
 
-    public void setQuestionIds(Set<Long> questionIds) {
+    public void setQuestionIds(List<Long> questionIds) {
         this.questionIds = questionIds;
     }
 

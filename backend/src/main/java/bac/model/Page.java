@@ -5,7 +5,9 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -40,11 +42,11 @@ public class Page extends bac.model.Entity{
     private Questionnaire questionnaire;
 
     @OneToMany(mappedBy = "page")
-    @OrderBy("position")
-    private Set<Question> questions;
+    @OrderColumn(name = "position")
+    private List<Question> questions;
 
     public Page(){
-        this.questions = new HashSet<>();
+        this.questions = new ArrayList<>();
     }
 
     public Long getId() {
@@ -95,11 +97,11 @@ public class Page extends bac.model.Entity{
         this.questionnaire = questionnaire;
     }
 
-    public Set<Question> getQuestions() {
+    public List<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(Set<Question> questions) {
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
 }

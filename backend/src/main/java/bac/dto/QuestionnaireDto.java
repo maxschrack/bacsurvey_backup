@@ -2,9 +2,7 @@ package bac.dto;
 
 import bac.model.enums.EStatus;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by max on 13/02/16.
@@ -30,10 +28,10 @@ public class QuestionnaireDto extends EntityDto{
 
     private Long endPageId;
 
-    private Set<Long> pageIds;
+    private List<Long> pageIds;
 
     public QuestionnaireDto(){
-        this.pageIds = new HashSet<>();
+        this.pageIds = new ArrayList<>();
     }
 
     public String getName() {
@@ -100,11 +98,11 @@ public class QuestionnaireDto extends EntityDto{
         this.endPageId = endPageId;
     }
 
-    public Set<Long> getPageIds() {
+    public List<Long> getPageIds() {
         return pageIds;
     }
 
-    public void setPageIds(Set<Long> pageIds) {
+    public void setPageIds(List<Long> pageIds) {
         this.pageIds = pageIds;
     }
 

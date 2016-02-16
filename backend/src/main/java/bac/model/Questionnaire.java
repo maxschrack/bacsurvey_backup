@@ -46,7 +46,7 @@ public class Questionnaire extends bac.model.Entity{
     private User user;
 
     @OneToMany(mappedBy = "questionnaire")
-    @OrderBy("number")
+    @OrderColumn(name = "number")
     private List<Page> pages;
 
     @OneToOne(mappedBy = "questionnaire")

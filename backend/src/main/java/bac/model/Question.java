@@ -15,6 +15,7 @@ import java.util.Set;
 @Where(clause = "deleted='f'")
 @SQLDelete(sql="update question set deleted = 't' where id = ?")
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="question_type")
 public class Question extends bac.model.Entity{
 
     @Id
@@ -38,6 +39,17 @@ public class Question extends bac.model.Entity{
     @ManyToOne
     @JoinColumn(name = "page_id", referencedColumnName = "id")
     private Page page;
+
+    public Question() {
+    }
+
+    public Question(String text, boolean mandatory, int position, boolean deleted, Page page) {
+        this.text = text;
+        this.mandatory = mandatory;
+        this.position = position;
+        this.deleted = deleted;
+        this.page = page;
+    }
 
     public Long getId() {
         return id;

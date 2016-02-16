@@ -30,6 +30,7 @@ public class Log extends bac.model.Entity{
     @Column(name = "object_id")
     private Long objectId;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private ELogType type;
 
