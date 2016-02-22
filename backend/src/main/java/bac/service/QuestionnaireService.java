@@ -2,6 +2,7 @@ package bac.service;
 
 import bac.dto.DtoList;
 import bac.dto.QuestionnaireDto;
+import bac.dto.UserDto;
 import bac.exception.ServiceException;
 
 public interface QuestionnaireService {
@@ -12,4 +13,6 @@ public interface QuestionnaireService {
     QuestionnaireDto delete(QuestionnaireDto toDelete) throws ServiceException;
 
     DtoList<QuestionnaireDto> readAll() throws ServiceException;
+
+    DtoList<QuestionnaireDto> readAllPerUser(UserDto userDto);
 }

@@ -3,8 +3,10 @@ package bac.service.impl;
 import bac.converter.QuestionnaireConverter;
 import bac.dto.DtoList;
 import bac.dto.QuestionnaireDto;
+import bac.dto.UserDto;
 import bac.exception.ServiceException;
 import bac.model.Questionnaire;
+import bac.model.User;
 import bac.repository.QuestionnaireRepository;
 import bac.service.QuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by max on 16/02/16.
- */
 @Service
 public class QuestionnaireServiceImpl implements QuestionnaireService{
 
@@ -107,5 +106,20 @@ public class QuestionnaireServiceImpl implements QuestionnaireService{
 
         // convert and return
         return questionnaireConverter.toDtoList(questionnaires);
+    }
+
+    @Override
+    public DtoList<QuestionnaireDto> readAllPerUser(UserDto userDto) {
+
+        // validate
+
+        //
+        User finder = new User();
+        finder.setId(userDto.getId());
+        List<Questionnaire> result = questionnaireRepository.findByUser(finder);
+
+        // convert and return
+        return questionnaireConverter.toDtoList(result);
+
     }
 }

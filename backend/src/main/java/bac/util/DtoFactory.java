@@ -1,9 +1,11 @@
 package bac.util;
 
 import bac.dto.EntityDto;
+import bac.dto.PageDto;
 import bac.dto.QuestionnaireDto;
 import bac.dto.UserDto;
 import bac.rest.EntityModelRest;
+import bac.rest.PageRest;
 import bac.rest.QuestionnaireRest;
 import bac.rest.UserRest;
 import org.springframework.beans.BeanUtils;
@@ -20,6 +22,7 @@ public class DtoFactory {
         Map<Class, Class> aMap = new LinkedHashMap<>();
         aMap.put(UserRest.class, UserDto.class);
         aMap.put(QuestionnaireRest.class, QuestionnaireDto.class);
+        aMap.put(PageRest.class, PageDto.class);
         MAPPINGS = Collections.unmodifiableMap(aMap);
     }
 

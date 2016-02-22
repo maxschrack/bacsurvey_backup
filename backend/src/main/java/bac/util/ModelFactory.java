@@ -1,9 +1,11 @@
 package bac.util;
 
 import bac.dto.EntityDto;
+import bac.dto.PageDto;
 import bac.dto.QuestionnaireDto;
 import bac.dto.UserDto;
 import bac.rest.EntityModelRest;
+import bac.rest.PageRest;
 import bac.rest.QuestionnaireRest;
 import bac.rest.UserRest;
 import org.springframework.beans.BeanUtils;
@@ -39,6 +41,12 @@ public class ModelFactory {
         QuestionnaireRest userRest = new QuestionnaireRest();
         setValuesFromDto(dto, userRest);
         return userRest;
+    }
+
+    public static PageRest page(PageDto dto) {
+        PageRest pageRest = new PageRest();
+        setValuesFromDto(dto, pageRest);
+        return pageRest;
     }
 
     private static void setValuesFromDto(EntityDto from, EntityModelRest to) {

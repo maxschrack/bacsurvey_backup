@@ -29,6 +29,10 @@ public class PageDto extends EntityDto {
         this.questionIds = new ArrayList<>();
     }
 
+    public PageDto(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String getDisplayName() {
         return "page";

@@ -1,7 +1,10 @@
 package bac.controller.impl;
 
+import bac.dto.DtoList;
 import bac.dto.QuestionnaireDto;
+import bac.dto.UserDto;
 import bac.exception.ServiceException;
+import bac.repository.QuestionnaireRepository;
 import bac.rest.QuestionnaireRest;
 import bac.service.QuestionnaireService;
 import bac.util.DtoFactory;
@@ -17,20 +20,20 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-/**
- * Created by max on 16/02/16.
- */
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
 @RequestMapping("/users/{userId}/questionnaires")
 @Api(value = "/questionnaires", description = "Questionnaire Administration")
-public class QuestionnaireController {
+public class QuestionnairePerUserController {
 
     private QuestionnaireService questionnaireService;
 
     @Autowired
-    public QuestionnaireController(QuestionnaireService questionnaireService){
+    public QuestionnairePerUserController(QuestionnaireService questionnaireService){
         this.questionnaireService = questionnaireService;
     }
 
@@ -89,6 +92,7 @@ public class QuestionnaireController {
         return new ResponseEntity<>(updatedQuestionnaire, headers, HttpStatus.OK);
     }
 
+    // DELETE
     @RequestMapping(method = RequestMethod.DELETE, value = "/{questionnaireId}")
     @ApiOperation(value = "Delete a Questionnaire", notes = "")
     public ResponseEntity<QuestionnaireRest> delete(@PathVariable Long userId, @PathVariable Long questionnaireId) throws ServiceException, HttpRequestMethodNotSupportedException {
@@ -101,6 +105,26 @@ public class QuestionnaireController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity<>(c, headers, HttpStatus.OK);
+    }
+
+    // READ ALL PER USER
+    // READ
+    @RequestMapping(method = RequestMethod.GET)
+    @ApiOperation(value = "Retrieve all Questionnaires per User", notes = "")
+    public ResponseEntity<List<QuestionnaireRest>> read(@PathVariable Long userId) throws ServiceException, HttpRequestMethodNotSupportedException {
+        if (questionnaireService == null)
+            throw new HttpRequestMethodNotSupportedException("GET");
+
+        DtoList<QuestionnaireDto> response =
+                questionnaireService.readAllPerUser(new UserDto(userId));
+        List<QuestionnaireRest> questionnaires = new ArrayList<>();
+        for(QuestionnaireDto dto : response){
+            questionnaires.add(ModelFactory.questionnaire(dto));
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity<>(questionnaires, headers, HttpStatus.OK);
     }
 }
 
