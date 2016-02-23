@@ -10,9 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by max on 13/02/16.
- */
 public abstract class Converter<D extends Dto, E extends Entity> {
 
     public D toDto(E entitiy){

@@ -49,10 +49,12 @@ public class Questionnaire extends bac.model.Entity{
     @OrderColumn(name = "number")
     private List<Page> pages;
 
-    @OneToOne(mappedBy = "questionnaire")
+    @OneToOne
+    @JoinColumn(name = "start_page")
     private MetaPage startPage;
 
-    @OneToOne(mappedBy = "questionnaire")
+    @OneToOne
+    @JoinColumn(name = "end_page")
     private MetaPage endPage;
 
     public Questionnaire(){

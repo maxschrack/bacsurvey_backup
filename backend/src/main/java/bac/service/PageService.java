@@ -5,9 +5,6 @@ import bac.dto.PageDto;
 import bac.dto.QuestionnaireDto;
 import bac.exception.ServiceException;
 
-/**
- * Created by max on 16/02/16.
- */
 public interface PageService {
 
     PageDto create(PageDto toCreate) throws ServiceException;

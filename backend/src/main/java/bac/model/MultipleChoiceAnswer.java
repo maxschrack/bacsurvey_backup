@@ -6,9 +6,6 @@ import javax.persistence.Entity;
 
 import javax.persistence.*;
 
-/**
- * Created by max on 08/02/16.
- */
 @Entity
 @Table(name="multiple_choice_answer")
 public class MultipleChoiceAnswer extends bac.model.Entity{

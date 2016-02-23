@@ -5,9 +5,6 @@ import bac.model.enums.EValidationType;
 import javax.persistence.*;
 import javax.persistence.Entity;
 
-/**
- * Created by max on 08/02/16.
- */
 @Entity
 @DiscriminatorValue("OQ")
 @Table(name="open_question")

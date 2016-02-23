@@ -1,10 +1,16 @@
 package bac.repository;
 
+import bac.model.Page;
 import bac.model.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-/**
- * Created by max on 09/02/16.
- */
+import java.util.List;
+
+@Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
+
+    @Query("SELECT q FROM Question q INNER JOIN q.page p WHERE p = ?1 ")
+    List<Question> findByPage(Page finder);
 }

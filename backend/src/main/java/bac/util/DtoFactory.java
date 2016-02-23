@@ -1,13 +1,7 @@
 package bac.util;
 
-import bac.dto.EntityDto;
-import bac.dto.PageDto;
-import bac.dto.QuestionnaireDto;
-import bac.dto.UserDto;
-import bac.rest.EntityModelRest;
-import bac.rest.PageRest;
-import bac.rest.QuestionnaireRest;
-import bac.rest.UserRest;
+import bac.dto.*;
+import bac.rest.*;
 import org.springframework.beans.BeanUtils;
 
 import java.util.Collections;
@@ -23,6 +17,9 @@ public class DtoFactory {
         aMap.put(UserRest.class, UserDto.class);
         aMap.put(QuestionnaireRest.class, QuestionnaireDto.class);
         aMap.put(PageRest.class, PageDto.class);
+        aMap.put(OpenQuestionRest.class, OpenQuestionDto.class);
+        aMap.put(MultipleChoiceRest.class, MultipleChoiceDto.class);
+        aMap.put(MetaPageRest.class, MetaPageDto.class);
         MAPPINGS = Collections.unmodifiableMap(aMap);
     }
 

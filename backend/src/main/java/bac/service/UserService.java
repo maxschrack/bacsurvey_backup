@@ -4,9 +4,6 @@ import bac.dto.DtoList;
 import bac.dto.UserDto;
 import bac.exception.ServiceException;
 
-/**
- * Created by max on 13/02/16.
- */
 public interface UserService {
 
     UserDto create(UserDto toCreate) throws ServiceException;

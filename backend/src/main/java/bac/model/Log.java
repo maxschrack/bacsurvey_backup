@@ -6,9 +6,6 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import java.util.Date;
 
-/**
- * Created by max on 09/02/16.
- */
 @Entity
 @Table(name="log")
 public class Log extends bac.model.Entity{

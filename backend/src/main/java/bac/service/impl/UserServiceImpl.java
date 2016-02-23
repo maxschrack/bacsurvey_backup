@@ -14,9 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by max on 16/02/16.
- */
 @Service
 public class UserServiceImpl implements UserService {
 

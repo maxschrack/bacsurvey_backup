@@ -5,9 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by max on 13/02/16.
- */
 public class PageDto extends EntityDto {
 
     private Long id;

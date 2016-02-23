@@ -13,9 +13,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by max on 16/02/16.
- */
 @Component
 public class PageConverter extends Converter<PageDto, Page>{
 

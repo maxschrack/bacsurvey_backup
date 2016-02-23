@@ -1,22 +1,14 @@
 package bac.util;
 
-import bac.dto.EntityDto;
-import bac.dto.PageDto;
-import bac.dto.QuestionnaireDto;
-import bac.dto.UserDto;
-import bac.rest.EntityModelRest;
-import bac.rest.PageRest;
-import bac.rest.QuestionnaireRest;
-import bac.rest.UserRest;
+import bac.dto.*;
+import bac.rest.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-/**
- * Created by max on 16/02/16.
- */
+
 public class ModelFactory {
     @Value("${config.url.context}")
     private static String baseUrl;
@@ -47,6 +39,24 @@ public class ModelFactory {
         PageRest pageRest = new PageRest();
         setValuesFromDto(dto, pageRest);
         return pageRest;
+    }
+
+    public static MetaPageRest metaPage(MetaPageDto dto) {
+        MetaPageRest metaPageRest = new MetaPageRest();
+        setValuesFromDto(dto, metaPageRest);
+        return metaPageRest;
+    }
+
+    public static OpenQuestionRest openQuestion(OpenQuestionDto dto) {
+        OpenQuestionRest openQuestionRest = new OpenQuestionRest();
+        setValuesFromDto(dto, openQuestionRest);
+        return openQuestionRest;
+    }
+
+    public static MultipleChoiceRest multipleChoice(MultipleChoiceDto dto) {
+        MultipleChoiceRest multipleChoiceRest = new MultipleChoiceRest();
+        setValuesFromDto(dto, multipleChoiceRest);
+        return multipleChoiceRest;
     }
 
     private static void setValuesFromDto(EntityDto from, EntityModelRest to) {

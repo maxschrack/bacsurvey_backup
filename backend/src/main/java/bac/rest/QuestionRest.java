@@ -1,39 +1,24 @@
-package bac.dto;
+package bac.rest;
 
-import java.util.HashSet;
-import java.util.Set;
 
-public abstract class QuestionDto extends EntityDto{
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    private Long id;
+public abstract class QuestionRest extends EntityModelRest{
 
+    @JsonProperty("text")
     private String text;
 
+    @JsonProperty("mandatory")
     private boolean mandatory;
 
+    @JsonProperty("position")
     private int position;
 
+    @JsonProperty("deleted")
     private boolean deleted;
 
-    // Foreign Keys
+    @JsonProperty("pageId")
     private Long pageId;
-
-    public QuestionDto() {
-    }
-
-    public QuestionDto(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getText() {
         return text;

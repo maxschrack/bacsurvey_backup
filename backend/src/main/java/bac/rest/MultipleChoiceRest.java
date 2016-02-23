@@ -1,17 +1,17 @@
-package bac.dto;
+package bac.rest;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class MultipleChoiceDto extends QuestionDto {
+public class MultipleChoiceRest extends QuestionRest {
 
+    @JsonProperty("isSingleChoice")
     private boolean isSingleChoice;
 
-    private Set<String> answers;
-
-    public MultipleChoiceDto() {
-        this.answers = new HashSet<>();
-    }
+    @JsonProperty("answers")
+    private Set<String> answers = new HashSet<>();;
 
     public boolean getIsSingleChoice() {
         return isSingleChoice;
@@ -27,10 +27,5 @@ public class MultipleChoiceDto extends QuestionDto {
 
     public void setAnswers(Set<String> answers) {
         this.answers = answers;
-    }
-
-    @Override
-    public String getDisplayName() {
-        return "multiple choice";
     }
 }

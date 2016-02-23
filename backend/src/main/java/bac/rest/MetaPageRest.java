@@ -1,8 +1,9 @@
 package bac.rest;
 
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PageRest extends EntityModelRest{
+public class MetaPageRest extends EntityModelRest{
 
     @JsonProperty("title")
     private String title;
@@ -10,14 +11,12 @@ public class PageRest extends EntityModelRest{
     @JsonProperty("text")
     private String text;
 
-    @JsonProperty("number")
-    private int number;
-
     @JsonProperty("deleted")
     private boolean deleted;
 
     @JsonProperty("questionnaireId")
     private Long questionnaireId;
+
 
     public String getTitle() {
         return title;
@@ -33,14 +32,6 @@ public class PageRest extends EntityModelRest{
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
     }
 
     public boolean getDeleted() {

@@ -1,8 +1,5 @@
 package bac.dto;
 
-/**
- * Created by max on 13/02/16.
- */
 public class MetaPageDto extends EntityDto {
 
     private Long id;
@@ -15,6 +12,13 @@ public class MetaPageDto extends EntityDto {
 
     // Foreign Keys
     private Long questionnaireId;
+
+    public MetaPageDto(Long id) {
+        this.id = id;
+    }
+
+    public MetaPageDto() {
+    }
 
     @Override
     public String getDisplayName() {
