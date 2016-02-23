@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -155,10 +156,10 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public void createAnswerForQuestion(Set<String> answers, MultipleChoiceDto dto) {
-        MultipleChoiceAnswer temp = new MultipleChoiceAnswer();
-        temp.setMultipleChoice(multipleChoiceConverter.toEntity(dto));
-        for(String answer : answers){
+    public void createAnswerForQuestion(MultipleChoiceDto dto) {
+        for(String answer : dto.getAnswers()){
+            MultipleChoiceAnswer temp = new MultipleChoiceAnswer();
+            temp.setMultipleChoice(multipleChoiceRepository.findOne(dto.getId()));
             temp.setText(answer);
             multipleChoiceAnswerRepository.save(temp);
         }
@@ -170,15 +171,7 @@ public class QuestionServiceImpl implements QuestionService{
         // validate
 
         // search
-        //Question question = questionRepository.findOne(toRead.getId());
-
-        Question question = questionRepository.findById(questionConverter.toEntity(toRead));
-
-        /*if(question instanceof OpenQuestion){
-            return openQuestionConverter.toDto(()question);
-        }else{
-
-        }*/
+        Question question = questionRepository.findOne(toRead.getId());
 
         // convert and return
         return questionConverter.toDto(question);

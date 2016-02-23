@@ -11,6 +11,5 @@ import java.util.List;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
-    @Query("SELECT q FROM Question q INNER JOIN q.page p WHERE p = ?1 ")
     List<Question> findByPage(Page finder);
 }

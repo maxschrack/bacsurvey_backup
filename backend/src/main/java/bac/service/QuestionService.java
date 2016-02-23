@@ -3,7 +3,7 @@ package bac.service;
 import bac.dto.*;
 import bac.exception.ServiceException;
 
-import java.util.Set;
+import java.util.List;
 
 public interface QuestionService {
 
@@ -16,7 +16,7 @@ public interface QuestionService {
 
     DtoList<QuestionDto> readAllPerPage(PageDto pageDto);
 
-    void createAnswerForQuestion(Set<String> answers, MultipleChoiceDto dto);
+    void createAnswerForQuestion(MultipleChoiceDto dto);
 
     QuestionDto read(QuestionDto toRead);
 }

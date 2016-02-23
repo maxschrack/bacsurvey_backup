@@ -2,6 +2,7 @@ package bac.model;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,11 +14,11 @@ public class MultipleChoice extends Question{
     private boolean isSingleChoice;
 
     @OneToMany(mappedBy = "multipleChoice")
-    private Set<MultipleChoiceAnswer> answers;
+    private List<MultipleChoiceAnswer> answers;
 
     public MultipleChoice(){}
 
-    public MultipleChoice(String text, boolean mandatory, int position, boolean deleted, Page page, boolean isSingleChoice, Set<MultipleChoiceAnswer> answers) {
+    public MultipleChoice(String text, boolean mandatory, int position, boolean deleted, Page page, boolean isSingleChoice, List<MultipleChoiceAnswer> answers) {
         super(text, mandatory, position, deleted, page);
         this.isSingleChoice = isSingleChoice;
         this.answers = answers;
@@ -31,11 +32,11 @@ public class MultipleChoice extends Question{
         this.isSingleChoice = isSingleChoice;
     }
 
-    public Set<MultipleChoiceAnswer> getAnswers() {
+    public List<MultipleChoiceAnswer> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Set<MultipleChoiceAnswer> answers) {
+    public void setAnswers(List<MultipleChoiceAnswer> answers) {
         this.answers = answers;
     }
 }

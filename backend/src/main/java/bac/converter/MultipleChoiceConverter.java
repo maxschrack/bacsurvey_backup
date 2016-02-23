@@ -55,15 +55,6 @@ public class MultipleChoiceConverter  extends Converter<MultipleChoiceDto, Multi
             throw new IllegalArgumentException("Invalid Dto");
         entity.setPage(page);
 
-        Set<MultipleChoiceAnswer> answers = new HashSet<>();
-        /*for(String answer : dto.getAnswers()){
-            MultipleChoiceAnswer temp = new MultipleChoiceAnswer();
-            temp.setText(answer);
-            answers.add(temp);
-        }
-        entity.setAnswers(answers);*/
-
-
         return entity;
     }
 }

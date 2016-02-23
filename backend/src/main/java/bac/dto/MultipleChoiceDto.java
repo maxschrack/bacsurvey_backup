@@ -1,16 +1,16 @@
 package bac.dto;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MultipleChoiceDto extends QuestionDto {
 
     private boolean isSingleChoice;
 
-    private Set<String> answers;
+    private List<String> answers;
 
     public MultipleChoiceDto() {
-        this.answers = new HashSet<>();
+        this.answers = new ArrayList<>();
     }
 
     public boolean getIsSingleChoice() {
@@ -21,11 +21,11 @@ public class MultipleChoiceDto extends QuestionDto {
         this.isSingleChoice = isSingleChoice;
     }
 
-    public Set<String> getAnswers() {
+    public List<String> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Set<String> answers) {
+    public void setAnswers(List<String> answers) {
         this.answers = answers;
     }
 

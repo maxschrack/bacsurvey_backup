@@ -66,7 +66,7 @@ public class QuestionPerPageCtrl {
 
         MultipleChoiceDto response = questionService.createMultipleChoiceQuestion(dto);
         // save answers for mc question
-        questionService.createAnswerForQuestion(question.getAnswers(), response);
+        questionService.createAnswerForQuestion(response);
 
         response = (MultipleChoiceDto) questionService.read(response);
 

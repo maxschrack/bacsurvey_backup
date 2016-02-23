@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 public class QuestionConverter{
@@ -110,7 +107,7 @@ public class QuestionConverter{
                 dto.setDeleted(question.getDeleted());
                 dto.setPageId(question.getPage().getId());
                 ((MultipleChoiceDto) dto).setIsSingleChoice(((MultipleChoice) question).getIsSingleChoice());
-                Set<String> answers = new HashSet<>();
+                List<String> answers = new ArrayList<>();
                 for(MultipleChoiceAnswer answer : ((MultipleChoice) question).getAnswers()){
                     answers.add(answer.getText());
                 }

@@ -2,8 +2,8 @@ package bac.rest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MultipleChoiceRest extends QuestionRest {
 
@@ -11,7 +11,7 @@ public class MultipleChoiceRest extends QuestionRest {
     private boolean isSingleChoice;
 
     @JsonProperty("answers")
-    private Set<String> answers = new HashSet<>();;
+    private List<String> answers = new ArrayList<>();;
 
     public boolean getIsSingleChoice() {
         return isSingleChoice;
@@ -21,11 +21,11 @@ public class MultipleChoiceRest extends QuestionRest {
         this.isSingleChoice = isSingleChoice;
     }
 
-    public Set<String> getAnswers() {
+    public List<String> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Set<String> answers) {
+    public void setAnswers(List<String> answers) {
         this.answers = answers;
     }
 }
