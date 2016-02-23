@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -58,10 +60,6 @@ public class QuestionConverter{
             dto = newOpenQuestionDto();
         }else{
             dto = newMultipleChoiceDto();
-            /*for(MultipleChoiceAnswer answer : ((MultipleChoice) entity).getMultipleChoiceAnswers()){
-                ((MultipleChoiceDto) dto).getMultipleChoiceAnswers().add(answer.getText());
-            }*/
-
         }
         BeanUtils.copyProperties(entity, dto);
 
@@ -92,13 +90,33 @@ public class QuestionConverter{
     public DtoList<QuestionDto> toDtoList(List<Question> entities){
         ArrayList<QuestionDto> result = new ArrayList<>();
         for(Question question : entities) {
-            QuestionDto dto = this.toDto(question);
-            /*if(question instanceof MultipleChoice){
-                MultipleChoice temp = (MultipleChoice) question;
-                for(MultipleChoiceAnswer answer : temp.getMultipleChoiceAnswers()){
-                    ((MultipleChoiceDto) dto).getMultipleChoiceAnswers().add(answer.getText()Z)
+            QuestionDto dto;
+            if(question instanceof OpenQuestion){
+                dto = newOpenQuestionDto();
+                dto.setId(question.getId());
+                dto.setText(question.getText());
+                dto.setMandatory(question.getMandatory());
+                dto.setPosition(question.getPosition());
+                dto.setDeleted(question.getDeleted());
+                dto.setPageId(question.getPage().getId());
+                ((OpenQuestionDto) dto).setIsLong(((OpenQuestion) question).getIsLong());
+                ((OpenQuestionDto) dto).setValidationType(((OpenQuestion) question).getValidationType());
+            }else{
+                dto = newMultipleChoiceDto();
+                dto.setId(question.getId());
+                dto.setText(question.getText());
+                dto.setMandatory(question.getMandatory());
+                dto.setPosition(question.getPosition());
+                dto.setDeleted(question.getDeleted());
+                dto.setPageId(question.getPage().getId());
+                ((MultipleChoiceDto) dto).setIsSingleChoice(((MultipleChoice) question).getIsSingleChoice());
+                Set<String> answers = new HashSet<>();
+                for(MultipleChoiceAnswer answer : ((MultipleChoice) question).getAnswers()){
+                    answers.add(answer.getText());
                 }
-            }*/
+                ((MultipleChoiceDto) dto).setAnswers(answers);
+            }
+
             result.add(dto);
         }
         return new DtoList<>(result);

@@ -170,7 +170,9 @@ public class QuestionServiceImpl implements QuestionService{
         // validate
 
         // search
-        Question question = questionRepository.findOne(toRead.getId());
+        //Question question = questionRepository.findOne(toRead.getId());
+
+        Question question = questionRepository.findById(questionConverter.toEntity(toRead));
 
         /*if(question instanceof OpenQuestion){
             return openQuestionConverter.toDto(()question);

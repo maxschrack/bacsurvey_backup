@@ -148,7 +148,6 @@ public class QuestionPerPageCtrl {
             }else if(dto instanceof MultipleChoiceDto){
                 questions.add(ModelFactory.multipleChoice((MultipleChoiceDto) dto));
             }
-
         }
 
         HttpHeaders headers = new HttpHeaders();
