@@ -16,14 +16,12 @@ import java.util.Set;
 @Component
 public class MultipleChoiceConverter  extends Converter<MultipleChoiceDto, MultipleChoice> {
 
+    @Autowired
     private MultipleChoiceRepository multipleChoiceRepository;
+    @Autowired
     private PageRepository pageRepository;
 
-    @Autowired
-    public MultipleChoiceConverter(MultipleChoiceRepository multipleChoiceRepository,
-                                   PageRepository pageRepository){
-        this.multipleChoiceRepository = multipleChoiceRepository;
-        this.pageRepository = pageRepository;
+    public MultipleChoiceConverter() {
     }
 
     @Override
@@ -49,7 +47,7 @@ public class MultipleChoiceConverter  extends Converter<MultipleChoiceDto, Multi
     public MultipleChoice toEntity(MultipleChoiceDto dto){
 
         MultipleChoice entity = super.toEntity(dto);
-
+        entity.setAnswers(null);
         Page page = pageRepository.findOne(dto.getPageId());
         if(page == null)
             throw new IllegalArgumentException("Invalid Dto");

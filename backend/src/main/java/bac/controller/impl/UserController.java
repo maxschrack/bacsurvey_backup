@@ -17,19 +17,15 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-/**
- * Created by max on 16/02/16.
- */
 @RestController
 @RequestMapping("/users")
 @Api(value = "/users", description = "User Administration")
 public class UserController {
 
+    @Autowired
     private UserService userService;
 
-    @Autowired
-    public UserController(UserService userService){
-        this.userService = userService;
+    public UserController(){
     }
 
     // CREATE

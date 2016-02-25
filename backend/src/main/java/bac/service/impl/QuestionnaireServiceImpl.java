@@ -27,11 +27,11 @@ public class QuestionnaireServiceImpl implements QuestionnaireService{
     public QuestionnaireServiceImpl() {
     }
 
-    public QuestionnaireServiceImpl(QuestionnaireRepository questionnaireRepository,
+    /*public QuestionnaireServiceImpl(QuestionnaireRepository questionnaireRepository,
                            QuestionnaireConverter questionnaireConverter) {
         this.questionnaireRepository = questionnaireRepository;
         this.questionnaireConverter = questionnaireConverter;
-    }
+    }*/
 
     @Override
     @Transactional

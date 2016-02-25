@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface MultipleChoiceAnswerRepository extends JpaRepository<MultipleChoiceAnswer, Long> {
 
-    @Query("SELECT a FROM MultipleChoiceAnswer a WHERE a.id = ?1 ")
+    @Query("SELECT a FROM MultipleChoiceAnswer a WHERE a.multipleChoice.id = ?1 ")
     List<MultipleChoiceAnswer> findByMultipleChoice(Long id);
 }

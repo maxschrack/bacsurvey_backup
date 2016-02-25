@@ -13,10 +13,9 @@ public interface QuestionService {
     OpenQuestionDto deleteOpenQuestion(OpenQuestionDto toDelete) throws ServiceException;
 
     MultipleChoiceDto createMultipleChoiceQuestion(MultipleChoiceDto toCreate);
+    QuestionDto readMultipleChoice(Long id) throws ServiceException;
 
     DtoList<QuestionDto> readAllPerPage(PageDto pageDto);
 
-    void createAnswerForQuestion(MultipleChoiceDto dto);
-
-    QuestionDto read(QuestionDto toRead);
+    QuestionDto read(Long questionId);
 }

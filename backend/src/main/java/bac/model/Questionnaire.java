@@ -57,6 +57,9 @@ public class Questionnaire extends bac.model.Entity{
     @JoinColumn(name = "end_page")
     private MetaPage endPage;
 
+    @OneToMany(mappedBy = "questionnaire")
+    private List<Participant> participant;
+
     public Questionnaire(){
         this.pages = new ArrayList<>();
     }
@@ -139,5 +142,13 @@ public class Questionnaire extends bac.model.Entity{
 
     public void setEndPage(MetaPage endPage) {
         this.endPage = endPage;
+    }
+
+    public List<Participant> getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(List<Participant> participant) {
+        this.participant = participant;
     }
 }

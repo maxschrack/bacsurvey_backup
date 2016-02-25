@@ -1,5 +1,6 @@
 package bac.dto;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,12 +17,22 @@ public class ParticipantDto extends EntityDto {
 
     private String ipAddress;
 
+    private Date creationDate;
+
     private boolean deleted;
 
     // Foreign Keys
+    private Long questionnaireId;
+
     private Set<Long> answerIds;
 
     private Set<Long> logIds;
+
+    public ParticipantDto(Long id) {
+        this.id = id;
+        this.answerIds = new HashSet<>();
+        this.logIds = new HashSet<>();
+    }
 
     public ParticipantDto(){
         this.answerIds = new HashSet<>();
@@ -66,12 +77,28 @@ public class ParticipantDto extends EntityDto {
         this.ipAddress = ipAddress;
     }
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public boolean getDeleted() {
         return deleted;
     }
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public Long getQuestionnaireId() {
+        return questionnaireId;
+    }
+
+    public void setQuestionnaireId(Long questionnaireId) {
+        this.questionnaireId = questionnaireId;
     }
 
     public Set<Long> getAnswerIds() {

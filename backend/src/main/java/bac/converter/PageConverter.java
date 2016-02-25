@@ -16,18 +16,12 @@ import java.util.List;
 @Component
 public class PageConverter extends Converter<PageDto, Page>{
 
-    private PageRepository pageRepository;
+    @Autowired
     private QuestionnaireRepository questionnaireRepository;
+    @Autowired
     private QuestionRepository questionRepository;
 
-    @Autowired
-    public PageConverter(PageRepository pageRepository,
-                         QuestionnaireRepository questionnaireRepository,
-                         QuestionRepository questionRepository){
-        this.pageRepository = pageRepository;
-        this.questionnaireRepository = questionnaireRepository;
-        this.questionRepository = questionRepository;
-    }
+    public PageConverter(){}
 
     @Override
     public PageDto newDto() {
@@ -76,6 +70,4 @@ public class PageConverter extends Converter<PageDto, Page>{
 
         return entity;
     }
-
-    public PageConverter(){}
 }

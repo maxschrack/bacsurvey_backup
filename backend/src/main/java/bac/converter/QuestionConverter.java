@@ -9,6 +9,7 @@ import bac.repository.MultipleChoiceRepository;
 import bac.repository.OpenQuestionRepository;
 import bac.repository.PageRepository;
 import bac.repository.QuestionRepository;
+import com.sun.org.apache.xpath.internal.operations.Mult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,20 +20,10 @@ import java.util.List;
 @Component
 public class QuestionConverter{
 
-    private QuestionRepository questionRepository;
-    private PageRepository pageRepository;
-    private OpenQuestionRepository openQuestionRepository;
-    private MultipleChoiceRepository multipleChoiceRepository;
-
     @Autowired
-    public QuestionConverter(QuestionRepository questionRepository,
-                             PageRepository pageRepository,
-                             OpenQuestionRepository openQuestionRepository,
-                             MultipleChoiceRepository multipleChoiceRepository){
-        this.questionRepository = questionRepository;
-        this.pageRepository = pageRepository;
-        this.openQuestionRepository = openQuestionRepository;
-        this.multipleChoiceRepository = multipleChoiceRepository;
+    private PageRepository pageRepository;
+
+    public QuestionConverter() {
     }
 
     public OpenQuestionDto newOpenQuestionDto(){
@@ -53,13 +44,27 @@ public class QuestionConverter{
 
     public QuestionDto toDto(Question entity){
         QuestionDto dto;
-        if(entity instanceof OpenQuestion) {
+        if(entity instanceof OpenQuestion){
             dto = newOpenQuestionDto();
+            ((OpenQuestionDto) dto).setIsLong(((OpenQuestion) entity).getIsLong());
+            ((OpenQuestionDto) dto).setValidationType(((OpenQuestion) entity).getValidationType());
         }else{
             dto = newMultipleChoiceDto();
+            ((MultipleChoiceDto) dto).setIsSingleChoice(((MultipleChoice) entity).getIsSingleChoice());
+            List<String> answers = new ArrayList<>();
+            if(((MultipleChoice) entity).getAnswers() != null){
+                for(MultipleChoiceAnswer answer : ((MultipleChoice) entity).getAnswers()){
+                    answers.add(answer.getText());
+                }
+            }
+            ((MultipleChoiceDto) dto).setAnswers(answers);
         }
-        BeanUtils.copyProperties(entity, dto);
 
+        dto.setId(entity.getId());
+        dto.setText(entity.getText());
+        dto.setMandatory(entity.getMandatory());
+        dto.setPosition(entity.getPosition());
+        dto.setDeleted(entity.getDeleted());
         dto.setPageId(entity.getPage().getId());
 
         return dto;
@@ -70,11 +75,25 @@ public class QuestionConverter{
         Question entity;
         if(dto instanceof OpenQuestionDto) {
             entity = newOpenQuestionEntity();
+            ((OpenQuestion) entity).setIsLong(((OpenQuestionDto) dto).getIsLong());
+            ((OpenQuestion) entity).setValidationType(((OpenQuestionDto) dto).getValidationType());
         }else{
             entity = newMultipleChoiceEntity();
+            ((MultipleChoice) entity).setIsSingleChoice(((MultipleChoiceDto) dto).getIsSingleChoice());
+            List<MultipleChoiceAnswer> answers = new ArrayList<>();
+            for(String answer : ((MultipleChoiceDto) dto).getAnswers()){
+                MultipleChoiceAnswer temp = new MultipleChoiceAnswer();
+                temp.setText(answer);
+                answers.add(temp);
+            }
+            ((MultipleChoice) entity).setAnswers(answers);
         }
 
-        BeanUtils.copyProperties(dto, entity);
+        entity.setId(dto.getId());
+        entity.setText(dto.getText());
+        entity.setMandatory(dto.getMandatory());
+        entity.setPosition(dto.getPosition());
+        entity.setDeleted(dto.getDeleted());
 
         Page page = pageRepository.findOne(dto.getPageId());
         if(page == null)
@@ -87,34 +106,7 @@ public class QuestionConverter{
     public DtoList<QuestionDto> toDtoList(List<Question> entities){
         ArrayList<QuestionDto> result = new ArrayList<>();
         for(Question question : entities) {
-            QuestionDto dto;
-            if(question instanceof OpenQuestion){
-                dto = newOpenQuestionDto();
-                dto.setId(question.getId());
-                dto.setText(question.getText());
-                dto.setMandatory(question.getMandatory());
-                dto.setPosition(question.getPosition());
-                dto.setDeleted(question.getDeleted());
-                dto.setPageId(question.getPage().getId());
-                ((OpenQuestionDto) dto).setIsLong(((OpenQuestion) question).getIsLong());
-                ((OpenQuestionDto) dto).setValidationType(((OpenQuestion) question).getValidationType());
-            }else{
-                dto = newMultipleChoiceDto();
-                dto.setId(question.getId());
-                dto.setText(question.getText());
-                dto.setMandatory(question.getMandatory());
-                dto.setPosition(question.getPosition());
-                dto.setDeleted(question.getDeleted());
-                dto.setPageId(question.getPage().getId());
-                ((MultipleChoiceDto) dto).setIsSingleChoice(((MultipleChoice) question).getIsSingleChoice());
-                List<String> answers = new ArrayList<>();
-                for(MultipleChoiceAnswer answer : ((MultipleChoice) question).getAnswers()){
-                    answers.add(answer.getText());
-                }
-                ((MultipleChoiceDto) dto).setAnswers(answers);
-            }
-
-            result.add(dto);
+            result.add(this.toDto(question));
         }
         return new DtoList<>(result);
     }

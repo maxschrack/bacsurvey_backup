@@ -53,14 +53,33 @@ public class ModelFactory {
         return openQuestionRest;
     }
 
+    public static ParticipantRest participant(ParticipantDto dto) {
+        ParticipantRest participantRest = new ParticipantRest();
+        setValuesFromDto(dto, participantRest);
+        return participantRest;
+    }
+
     public static MultipleChoiceRest multipleChoice(MultipleChoiceDto dto) {
         MultipleChoiceRest multipleChoiceRest = new MultipleChoiceRest();
         setValuesFromDto(dto, multipleChoiceRest);
         return multipleChoiceRest;
     }
 
+    public static AnswerRest answer(AnswerDto dto) {
+        AnswerRest answerRest = new AnswerRest();
+        setValuesFromDto(dto, answerRest);
+        return answerRest;
+    }
+
+    public static LogRest log(LogDto dto) {
+        LogRest logRest = new LogRest();
+        setValuesFromDto(dto, logRest);
+        return logRest;
+    }
+
     private static void setValuesFromDto(EntityDto from, EntityModelRest to) {
         BeanUtils.copyProperties(from, to);
         to.setSelfId(from.getId());
     }
+
 }

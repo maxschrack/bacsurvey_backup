@@ -4,9 +4,6 @@ import bac.model.enums.ELogType;
 
 import java.util.Date;
 
-/**
- * Created by max on 13/02/16.
- */
 public class LogDto extends EntityDto {
 
     private Long id;

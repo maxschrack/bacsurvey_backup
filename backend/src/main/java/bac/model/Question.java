@@ -7,9 +7,6 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import java.util.Set;
 
-/**
- * Created by max on 08/02/16.
- */
 @Entity
 @Table(name="question")
 @Where(clause = "deleted='f'")

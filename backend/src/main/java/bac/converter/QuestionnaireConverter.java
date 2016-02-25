@@ -15,27 +15,17 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by max on 16/02/16.
- */
 @Component
 public class QuestionnaireConverter extends Converter<QuestionnaireDto, Questionnaire>{
 
-    private QuestionnaireRepository questionnaireRepository;
+    @Autowired
     private PageRepository pageRepository;
+    @Autowired
     private MetaPageRepository metaPageRepository;
+    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    public QuestionnaireConverter(QuestionnaireRepository questionnaireRepository,
-                                  PageRepository pageRepository,
-                                  MetaPageRepository metaPageRepository,
-                                  UserRepository userRepository){
-        this.questionnaireRepository = questionnaireRepository;
-        this.pageRepository = pageRepository;
-        this.metaPageRepository = metaPageRepository;
-        this.userRepository = userRepository;
-    }
+    public QuestionnaireConverter(){}
 
     @Override
     public QuestionnaireDto newDto() {
@@ -111,6 +101,4 @@ public class QuestionnaireConverter extends Converter<QuestionnaireDto, Question
 
         return entity;
     }
-
-    public QuestionnaireConverter(){}
 }

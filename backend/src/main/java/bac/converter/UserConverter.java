@@ -6,18 +6,10 @@ import bac.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-/**
- * Created by max on 13/02/16.
- */
 @Component
 public class UserConverter extends Converter<UserDto, User> {
 
-    private UserRepository userRepository;
-
-    @Autowired
-    public UserConverter(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
+    public UserConverter(){}
 
     @Override
     public UserDto newDto() {
@@ -41,6 +33,4 @@ public class UserConverter extends Converter<UserDto, User> {
 
         return entity;
     }
-
-    public UserConverter(){}
 }

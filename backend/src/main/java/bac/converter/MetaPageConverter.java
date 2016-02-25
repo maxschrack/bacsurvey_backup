@@ -14,14 +14,8 @@ import java.util.List;
 @Component
 public class MetaPageConverter extends Converter<MetaPageDto, MetaPage>{
 
-    private PageRepository pageRepository;
-    private QuestionnaireRepository questionnaireRepository;
-
     @Autowired
-    public MetaPageConverter(PageRepository pageRepository, QuestionnaireRepository questionnaireRepository) {
-        this.pageRepository = pageRepository;
-        this.questionnaireRepository = questionnaireRepository;
-    }
+    private QuestionnaireRepository questionnaireRepository;
 
     public MetaPageConverter(){}
 

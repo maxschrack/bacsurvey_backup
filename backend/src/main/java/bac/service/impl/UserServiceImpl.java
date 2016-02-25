@@ -25,11 +25,11 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl() {
     }
 
-    public UserServiceImpl(UserRepository userRepository,
+    /*public UserServiceImpl(UserRepository userRepository,
                            UserConverter userConverter) {
         this.userRepository = userRepository;
         this.userConverter = userConverter;
-    }
+    }*/
 
     @Override
     @Transactional

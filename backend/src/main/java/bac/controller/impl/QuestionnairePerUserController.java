@@ -30,11 +30,10 @@ import java.util.stream.Collectors;
 @Api(value = "/questionnaires", description = "Questionnaire Administration")
 public class QuestionnairePerUserController {
 
+    @Autowired
     private QuestionnaireService questionnaireService;
 
-    @Autowired
-    public QuestionnairePerUserController(QuestionnaireService questionnaireService){
-        this.questionnaireService = questionnaireService;
+    public QuestionnairePerUserController(){
     }
 
     // CREATE

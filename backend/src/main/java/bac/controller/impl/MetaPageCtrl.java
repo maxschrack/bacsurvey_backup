@@ -26,11 +26,11 @@ import java.util.List;
 @Api(value = "/metaPages", description = "MetaPage Administration")
 public class MetaPageCtrl {
 
+    @Autowired
     private MetaPageService metaPageService;
 
-    @Autowired
-    public MetaPageCtrl(MetaPageService metaPageService) {
-        this.metaPageService = metaPageService;
+
+    public MetaPageCtrl() {
     }
 
     // CREATE
@@ -78,7 +78,9 @@ public class MetaPageCtrl {
 
         // retrieve page from db
         MetaPageDto response = metaPageService.readStartPagePerQuestionnaire(new QuestionnaireDto(questionnaireId));
-        MetaPageRest page = ModelFactory.metaPage(response);
+        MetaPageRest page = null;
+        if(response != null)
+            ModelFactory.metaPage(response);
 
         // send response
         HttpHeaders headers = new HttpHeaders();
@@ -88,7 +90,7 @@ public class MetaPageCtrl {
 
     // READ
     @RequestMapping(method = RequestMethod.GET, value = "/getEndPage")
-    @ApiOperation(value = "Retrieve the Questionnaire's StartPage", notes = "")
+    @ApiOperation(value = "Retrieve the Questionnaire's EndPage", notes = "")
     public ResponseEntity<MetaPageRest> readEndPageByQuestionnaire(@PathVariable Long userId, @PathVariable Long questionnaireId) throws ServiceException, HttpRequestMethodNotSupportedException {
         if (metaPageService == null)
             throw new HttpRequestMethodNotSupportedException("GET");

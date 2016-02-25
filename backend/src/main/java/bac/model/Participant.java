@@ -5,6 +5,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -18,8 +19,8 @@ public class Participant extends bac.model.Entity {
 
     @Id
     @Column(unique=true, nullable=false)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_system_user_id")
-    @SequenceGenerator(initialValue = 1, name = "seq_system_user_id", sequenceName = "seq_system_user_id")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_participant_id")
+    @SequenceGenerator(initialValue = 1, name = "seq_participant_id", sequenceName = "seq_participant_id")
     private Long id;
 
     @Column(name="email", unique=true)
@@ -31,8 +32,16 @@ public class Participant extends bac.model.Entity {
     @Column(name="ip_address")
     private String ipAddress;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="creation_date")
+    private Date creationDate;
+
     @Column(name="deleted")
     private boolean deleted;
+
+    @ManyToOne
+    @JoinColumn(name="questionnaire_id", referencedColumnName = "id")
+    private Questionnaire questionnaire;
 
     @OneToMany(mappedBy = "participant")
     private Set<Answer> answers;
@@ -72,6 +81,14 @@ public class Participant extends bac.model.Entity {
         this.ipAddress = ipAddress;
     }
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public boolean getDeleted() {
         return deleted;
     }
@@ -94,5 +111,13 @@ public class Participant extends bac.model.Entity {
 
     public void setLog(Set<Log> log) {
         this.log = log;
+    }
+
+    public Questionnaire getQuestionnaire() {
+        return questionnaire;
+    }
+
+    public void setQuestionnaire(Questionnaire questionnaire) {
+        this.questionnaire = questionnaire;
     }
 }

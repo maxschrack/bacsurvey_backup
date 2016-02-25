@@ -12,14 +12,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class OpenQuestionConverter extends Converter<OpenQuestionDto, OpenQuestion> {
 
-    private OpenQuestionRepository openQuestionRepository;
+    @Autowired
     private PageRepository pageRepository;
 
-    @Autowired
-    public OpenQuestionConverter(OpenQuestionRepository openQuestionRepository,
-                                 PageRepository pageRepository){
-        this.openQuestionRepository = openQuestionRepository;
-        this.pageRepository = pageRepository;
+    public OpenQuestionConverter() {
     }
 
     @Override

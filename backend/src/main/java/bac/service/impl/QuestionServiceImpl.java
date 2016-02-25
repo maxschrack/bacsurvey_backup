@@ -42,7 +42,7 @@ public class QuestionServiceImpl implements QuestionService{
 
     public QuestionServiceImpl() {
     }
-
+    /*
     public QuestionServiceImpl(OpenQuestionRepository openQuestionRepository,
                                OpenQuestionConverter openQuestionConverter,
                                MultipleChoiceRepository multipleChoiceRepository,
@@ -57,10 +57,11 @@ public class QuestionServiceImpl implements QuestionService{
         this.questionRepository = questionRepository;
         this.questionConverter = questionConverter;
         this.multipleChoiceAnswerRepository = multipleChoiceAnswerRepository;
-    }
+    }*/
 
     // ##########################   OPEN QUESTION   #################################
     @Override
+    @Transactional
     public OpenQuestionDto createOpenQuestion(OpenQuestionDto toCreate) {
         if(toCreate == null)
             throw new IllegalArgumentException("Illegal Argument: Null");
@@ -81,21 +82,28 @@ public class QuestionServiceImpl implements QuestionService{
 
     // ##########################   MC QUESTION   #################################
     @Override
+    @Transactional
     public MultipleChoiceDto createMultipleChoiceQuestion(MultipleChoiceDto toCreate) {
         if(toCreate == null)
             throw new IllegalArgumentException("Illegal Argument: Null");
 
         // validate
-        // TODO : VALIDATION
 
         // convert
         MultipleChoice multipleChoice = multipleChoiceConverter.toEntity(toCreate);
 
         // create
-        multipleChoice = multipleChoiceRepository.save(multipleChoice);
+        MultipleChoice newMultipleChoice = multipleChoiceRepository.save(multipleChoice);
 
+        // Create Answers
+        for(String answer : toCreate.getAnswers()){
+            MultipleChoiceAnswer toSave = new MultipleChoiceAnswer();
+            toSave.setText(answer);
+            toSave.setMultipleChoice(newMultipleChoice);
+            multipleChoiceAnswerRepository.save(toSave);
+        }
         // convert back and return
-        return multipleChoiceConverter.toDto(multipleChoice);
+        return multipleChoiceConverter.toDto(newMultipleChoice);
     }
 
     @Override
@@ -156,22 +164,31 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public void createAnswerForQuestion(MultipleChoiceDto dto) {
-        for(String answer : dto.getAnswers()){
-            MultipleChoiceAnswer temp = new MultipleChoiceAnswer();
-            temp.setMultipleChoice(multipleChoiceRepository.findOne(dto.getId()));
-            temp.setText(answer);
-            multipleChoiceAnswerRepository.save(temp);
-        }
-    }
-
-    @Override
-    public QuestionDto read(QuestionDto toRead) {
+    public QuestionDto readMultipleChoice(Long questionId) {
 
         // validate
 
         // search
-        Question question = questionRepository.findOne(toRead.getId());
+        Question question = multipleChoiceRepository.findOne(questionId);
+
+        // convert and return
+        return questionConverter.toDto(question);
+    }
+
+    @Override
+    public QuestionDto read(Long questionId) {
+
+        // validate
+
+        // search
+        Question question = questionRepository.findOne(questionId);
+
+        if(question instanceof MultipleChoice){
+            if(((MultipleChoice)question).getAnswers() == null){
+                List<MultipleChoiceAnswer> answers = multipleChoiceAnswerRepository.findByMultipleChoice(questionId);
+                ((MultipleChoice) question).setAnswers(answers);
+            }
+        }
 
         // convert and return
         return questionConverter.toDto(question);

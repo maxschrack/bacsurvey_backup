@@ -1,8 +1,5 @@
 package bac.dto;
 
-/**
- * Created by max on 13/02/16.
- */
 public class AnswerDto extends EntityDto {
 
     private Long id;
@@ -51,20 +48,5 @@ public class AnswerDto extends EntityDto {
 
     public void setQuestionId(Long questionId) {
         this.questionId = questionId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        AnswerDto answerDto = (AnswerDto) o;
-
-        if (id != null ? !id.equals(answerDto.id) : answerDto.id != null) return false;
-        if (answer != null ? !answer.equals(answerDto.answer) : answerDto.answer != null) return false;
-        if (participantId != null ? !participantId.equals(answerDto.participantId) : answerDto.participantId != null)
-            return false;
-        return !(questionId != null ? !questionId.equals(answerDto.questionId) : answerDto.questionId != null);
-
     }
 }

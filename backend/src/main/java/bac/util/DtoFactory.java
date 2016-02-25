@@ -20,6 +20,9 @@ public class DtoFactory {
         aMap.put(OpenQuestionRest.class, OpenQuestionDto.class);
         aMap.put(MultipleChoiceRest.class, MultipleChoiceDto.class);
         aMap.put(MetaPageRest.class, MetaPageDto.class);
+        aMap.put(ParticipantRest.class, ParticipantDto.class);
+        aMap.put(AnswerRest.class, AnswerDto.class);
+        aMap.put(LogRest.class, LogDto.class);
         MAPPINGS = Collections.unmodifiableMap(aMap);
     }
 

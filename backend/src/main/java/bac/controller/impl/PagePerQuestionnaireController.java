@@ -27,11 +27,11 @@ import java.util.List;
 @Api(value = "/pages", description = "Page Administration")
 public class PagePerQuestionnaireController {
 
+    @Autowired
     private PageService pageService;
 
-    @Autowired
-    public PagePerQuestionnaireController(PageService pageService){
-        this.pageService = pageService;
+
+    public PagePerQuestionnaireController(){
     }
 
     // CREATE
@@ -46,7 +46,7 @@ public class PagePerQuestionnaireController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(
-                builder.path("/users/{userId}/questionnaires/{questionnairId}pages/{pageId}")
+                builder.path("/users/{userId}/questionnaires/{questionnaireId}/pages/{pageId}")
                         .buildAndExpand(userId, questionnaireId, response.getId().toString()).toUri());
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity<>(newPage, headers, HttpStatus.CREATED);

@@ -29,13 +29,13 @@ public class MetaPageServiceImpl implements MetaPageService{
     public MetaPageServiceImpl() {
     }
 
-    public MetaPageServiceImpl(MetaPageRepository metaPageRepository,
+    /*public MetaPageServiceImpl(MetaPageRepository metaPageRepository,
                                MetaPageConverter metaPageConverter,
                                QuestionnaireRepository questionnaireRepository) {
         this.metaPageRepository = metaPageRepository;
         this.metaPageConverter = metaPageConverter;
         this.questionnaireRepository = questionnaireRepository;
-    }
+    }*/
 
     @Override
     public MetaPageDto createStartPage(MetaPageDto toCreate) throws ServiceException {
@@ -91,10 +91,12 @@ public class MetaPageServiceImpl implements MetaPageService{
 
         // search
         Questionnaire finder = questionnaireRepository.findOne(toRead.getId());
-        MetaPage result = metaPageRepository.findOne(finder.getStartPage().getId());
-
-        // convert and return
-        return metaPageConverter.toDto(result);
+        if(finder.getStartPage() != null){
+            MetaPage result = metaPageRepository.findOne(finder.getStartPage().getId());
+            return metaPageConverter.toDto(result);
+        }else{
+            return null;
+        }
     }
 
     @Override

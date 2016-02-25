@@ -27,11 +27,11 @@ public class PageServiceImpl implements PageService{
     public PageServiceImpl() {
     }
 
-    public PageServiceImpl(PageRepository pageRepository,
+    /*public PageServiceImpl(PageRepository pageRepository,
                            PageConverter pageConverter) {
         this.pageRepository = pageRepository;
         this.pageConverter = pageConverter;
-    }
+    }*/
 
     @Override
     @Transactional

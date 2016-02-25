@@ -30,11 +30,10 @@ import java.util.Set;
 @Api(value = "/questions", description = "Question Administration")
 public class QuestionPerPageCtrl {
 
+    @Autowired
     private QuestionService questionService;
 
-    @Autowired
-    public QuestionPerPageCtrl(QuestionService questionService){
-        this.questionService = questionService;
+    public QuestionPerPageCtrl(){
     }
 
     // CREATE OPEN QUESTION
@@ -62,24 +61,21 @@ public class QuestionPerPageCtrl {
         if (questionService == null)
             throw new HttpRequestMethodNotSupportedException("POST");
 
-        MultipleChoiceDto dto = DtoFactory.toDto(question);
+        MultipleChoiceDto temp = questionService.createMultipleChoiceQuestion(DtoFactory.toDto(question));
 
-        MultipleChoiceDto response = questionService.createMultipleChoiceQuestion(dto);
-        // save answers for mc question
-        questionService.createAnswerForQuestion(response);
 
-        response = (MultipleChoiceDto) questionService.read(response);
+        QuestionDto response = questionService.read(temp.getId());
 
-        QuestionRest newQuestion = ModelFactory.multipleChoice(response);
+        QuestionRest newQuestion = ModelFactory.multipleChoice((MultipleChoiceDto) response);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(
+       /* headers.setLocation(
                 builder.path("/users/{userId}/questionnaires/{questionnaireId}/pages/{pageId}/question/{questionId}")
-                        .buildAndExpand(userId, questionnaireId, pageId, response.getId().toString()).toUri());
+                        .buildAndExpand(userId, questionnaireId, pageId, response.getId().toString()).toUri());*/
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity<>(newQuestion, headers, HttpStatus.CREATED);
     }
-/*
+
     // READ
     @RequestMapping(method = RequestMethod.GET, value = "/{questionId}")
     @ApiOperation(value = "Retrieve an Question", notes = "")
@@ -88,16 +84,22 @@ public class QuestionPerPageCtrl {
             throw new HttpRequestMethodNotSupportedException("GET");
 
         // retrieve question from db
-        QuestionDto response = questionService.read(new QuestionDto(questionId));
-        QuestionRest question = ModelFactory.question(response);
+        QuestionDto response = questionService.read(questionId);
 
+        QuestionRest question;
+
+        if(response instanceof OpenQuestionDto) {
+            question = ModelFactory.openQuestion((OpenQuestionDto)response);
+        }else{
+            question = ModelFactory.multipleChoice((MultipleChoiceDto) response);
+        }
         // send response
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity<>(question, headers, HttpStatus.OK);
     }
 
-    // UPDATE
+/*    // UPDATE
     @RequestMapping(method = RequestMethod.PUT, value = "/{questionId}")
     @ApiOperation(value = "Update a Question", notes = "")
     public ResponseEntity<QuestionRest> update(@PathVariable Long userId, @PathVariable Long questionnaireId, @PathVariable Long pageId, @PathVariable Long questionId, @RequestBody QuestionRest question, UriComponentsBuilder builder) throws ServiceException, InstantiationException, IllegalAccessException, HttpRequestMethodNotSupportedException {
